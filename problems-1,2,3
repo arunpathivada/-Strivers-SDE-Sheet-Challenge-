@@ -1,0 +1,94 @@
+problem 1
+#include <bits/stdc++.h>
+
+void setZeros(vector<vector<int>> &matrix)
+{
+	vector<vector<int>>matrix1 = matrix;
+    int n = matrix.size();
+	int m = matrix[0].size();
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			int i1 = i,j1 =j;
+			if(matrix[i1][j1]==0){
+				while(i1>=0){
+					matrix1[i1][j1]=0;
+					i1--;
+				}
+				i1=i,j1=j;
+				while(i1<n){
+					matrix1[i1][j1]=0;
+					i1++;
+				}
+				i1=i,j1=j;
+				while(j1>=0){
+					matrix1[i1][j1]=0;
+					j1--;
+				}
+				i1=i,j1=j;
+				while(j1<m){
+					matrix1[i1][j1]=0;
+					j1++;
+				}
+			}
+		}
+	}
+	matrix = matrix1;
+}
+
+
+problem 2
+#include <bits/stdc++.h>
+
+vector<vector<long long int>> printPascal(int n) 
+{
+  vector<vector<long long int>>ans;
+  vector<long long int>vect,prev;
+  for(int i = 1;i<=n;i++){
+    if(i==1){
+      vect.push_back(1);
+    }
+    else{
+      vect.push_back(1);
+      for(int j=1;j<prev.size();j++){
+        vect.push_back(prev[j-1]+prev[j]);
+      }
+      vect.push_back(1);
+    }
+    ans.push_back(vect);
+    prev = vect;
+    vect.clear();
+  }
+  return ans;
+
+  
+}
+
+
+problem 3
+
+#include <bits/stdc++.h> 
+vector<int> nextPermutation(vector<int> &permutation, int n)
+{
+    //finding the break point
+        int ind=-1;
+        for(int i=n-2;i>=0;i--){
+            if(permutation[i]<permutation[i+1]){
+                ind = i;
+                break;
+            }
+        }
+        if(ind==-1){
+            reverse(permutation.begin(),permutation.end());
+        }
+        else{
+            for(int i=n-1;i>ind;i--){
+            if(permutation[i]>permutation[ind]){
+                swap(permutation[i],permutation[ind]);
+                break;
+            }
+            }
+            reverse(permutation.begin()+ind+1,permutation.end());
+        }
+        return permutation;
+        
+}
