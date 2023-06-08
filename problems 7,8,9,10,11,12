@@ -1,0 +1,158 @@
+#include <bits/stdc++.h> 
+/*
+
+    intervals[i][0] = start point of i'th interval
+    intervals[i][1] = finish point of i'th interval
+
+*/
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> &intervals)
+{
+    vector<vector<int>>ans;
+    sort(intervals.begin(),intervals.end());
+    for(int i = 0;i<intervals.size();i++){
+         if(ans.empty() || intervals[i][0] > ans.back()[1]){
+             ans.push_back(intervals[i]);
+         }
+         else{
+             ans.back()[1]=max(ans.back()[1],intervals[i][1]);
+         }
+    }
+    return ans;
+}
+
+
+
+#include <bits/stdc++.h>
+vector<int>ninjaAndSortedArrays(vector<int>& nums1, vector<int>& nums2, int m, int n) {
+	/*
+	for(int i=0;i<n;i++){
+		arr1.pop_back();
+	}
+	for(int i=0;i<n;i++){
+		arr1.push_back(arr2[i]);
+	}
+	sort(arr1.begin(),arr1.end());
+	return arr1;
+	*/
+	int i = m-1;
+        int j = n-1;
+        int k = m+n-1;
+        while(i>=0 && j>=0){
+            if(nums1[i] > nums2[j]){
+                nums1[k] = nums1[i];
+                i--; k--;
+            }
+            else{
+                nums1[k] = nums2[j];
+                j--; k--;
+            }
+        }
+        while(j>=0){
+            nums1[k] = nums2[j];
+            j--; k--;
+        }
+		return nums1;
+    }
+    
+    
+    
+    #include <bits/stdc++.h>
+
+int findDuplicate(vector<int> &arr, int n){
+	set<int>st;
+	int ans;
+	for(int i=0;i<n;i++){
+		if(st.find(arr[i])==st.end()){
+			st.insert(arr[i]);
+		}
+		else{
+			ans  = arr[i];
+			break;
+		}
+	}
+	return ans;
+}
+
+
+
+
+#include <bits/stdc++.h>
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	/*/approach 1
+	vector<int>vect(n,0);
+	for(int i=0;i<n;i++){
+		vect[arr[i]]+=1;
+	}
+	int miss,rep;
+	for(int i=1;i<=n;i++){
+		if(vect[i]==0) miss = i;
+		if(vect[i]==2) rep = i;
+	}
+	return {miss,rep};
+	*/
+	int sum=0,sum2=0,sqsum=0,sqsum2=0;
+	for(int i=1;i<=n;i++){
+		sum+=i;
+		sum2+=arr[i-1];
+	} 
+	int diff = sum2-sum;
+	for(int i=1;i<=n;i++){
+		sqsum+=i*i;
+		sqsum2+=arr[i-1]*arr[i-1];
+	} 
+	int sqdiff = sqsum2-sqsum;
+	int val = sqdiff/diff;
+	int miss = (val-diff)/2;
+	int rep = (val+diff)/2;
+	return {miss,rep};
+
+}
+
+
+
+
+
+#include <bits/stdc++.h> 
+long long getInversions(long long *arr, int n){
+    int count=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(i!=j && arr[i]>arr[j] && i<j){
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+
+
+bool searchMatrix(vector<vector<int>>& mat, int target) {
+    int n = mat.size(),m= mat[0].size();
+    for(int i=0;i<n;i++){
+        if(mat[i][m-1]==target) return true;
+        else if(mat[i][m-1]>target){
+            for(int j=0;j<m-2;j++){
+                if(mat[i][j]==target) return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
+
+#include <bits/stdc++.h>
+
+int findMajorityElement(int arr[], int n) {
+        unordered_map<int,int>mpp;
+        for(int i=0;i<n;i++){
+            mpp[arr[i]]++;
+        }
+        for(auto it:mpp){
+            if(it.second>n/2) return it.first;
+        }
+        return -1;
+}
